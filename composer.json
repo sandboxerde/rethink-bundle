@@ -9,6 +9,7 @@
             "RethinkDB": "vendor/danielmewes/rdb/rdb.php"
         },
         "psr-4": {
+            "TBoileau\\RethinkBundle\\": "",
             "__Proxy__\\": "var/cache/prod/t_boileau_rethink_bundle/proxies/"
         }
     },

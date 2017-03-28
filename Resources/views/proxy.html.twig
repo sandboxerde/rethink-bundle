@@ -1,0 +1,53 @@
+<?php
+
+namespace __Proxy__\{{ namespace }};
+
+use TBoileau\RethinkBundle\ODM\EntityManager;
+
+class {{ class }} extends {{ classWithNamespace }}
+{
+    private $lazyProperties = array();
+
+    private $entityManager;
+
+    private $metadata;
+
+    public function __construct(EntityManager $entityManager, $metadata)
+    {
+        $this->entityManager = $entityManager;
+        $this->metadata = $metadata;
+    }
+
+    {% for name,manyToOne in properties.manyToOne %}
+        {% set field = name|capitalize %}
+    public function get{{field}}()
+    {
+        if(!in_array("{{ name }}",$this->lazyProperties) && parent::get{{field}}() != null){
+            $id = parent::get{{field}}();
+            $repository = $this->entityManager->getRepository("{{manyToOne.target}}");
+            $this->set{{field}}($repository->query(function($table) use ($id){
+                return $table->get($id);
+            })->getSingleResult());
+            $this->lazyProperties[] = "{{ name }}";
+        }
+        return parent::get{{field}}();
+    }
+    {% endfor %}
+
+    {% for name,oneToMany in properties.oneToMany %}
+        {% set field = name|capitalize %}
+    public function get{{field}}()
+    {
+        if(!in_array("{{ name }}",$this->lazyProperties)){
+            $id = $this->getId();
+            $repository = $this->entityManager->getRepository("{{oneToMany.target}}");
+            $field = $repository->getMetadata()["properties"]["manyToOne"]["{{oneToMany.mappedBy}}"];
+            $this->set{{field}}($repository->query(function($table) use ($field,$id){
+                return $table->filter([$field["name"]=>$id]);
+            })->getResults());
+            $this->lazyProperties[] = "{{ name }}";
+        }
+        return parent::get{{field}}();
+    }
+    {% endfor %}
+}

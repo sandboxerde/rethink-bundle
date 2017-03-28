@@ -1,0 +1,26 @@
+{
+    "name": "tboileau/rethink-bundle",
+    "description": "RethinkDB Bundle",
+    "require": {
+        "danielmewes/php-rql": "^2.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "RethinkDB": "vendor/danielmewes/rdb/rdb.php"
+        },
+        "psr-4": {
+            "__Proxy__\\": "var/cache/prod/t_boileau_rethink_bundle/proxies/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "__Proxy__\\": "var/cache/dev/t_boileau_rethink_bundle/proxies/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Thomas Boileau",
+            "email": "t-boileau@email.com"
+        }
+    ]
+}

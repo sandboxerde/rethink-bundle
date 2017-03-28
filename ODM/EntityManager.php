@@ -52,11 +52,11 @@ class EntityManager
         $data = [];
         foreach($metadata["properties"]["columns"] as $name=>$column)
         {
-            $data[$column["name"]] = $document->__get($name);
+            $data[$column["name"]] = $document->{"get".ucfirst($name)}();
         }
         foreach($metadata["properties"]["manyToOne"] as $name=>$column)
         {
-            $data[$column["name"]] = $document->__get($name) != null ? $document->__get($name)->getId() : null;
+            $data[$column["name"]] = $document->{"get".ucfirst($name)}() != null ? $document->{"get".ucfirst($name)}()->getId() : null;
         }
         $result = \r\table($metadata["table"]["name"])->filter(\r\row("id")->eq($document->getId()))->update($data)->run($conn);
         if($result["errors"] == 0 && $result["replaced"] == 1){
@@ -75,11 +75,11 @@ class EntityManager
         $data = [];
         foreach($metadata["properties"]["columns"] as $name=>$column)
         {
-            $data[$column["name"]] = $document->__get($name);
+            $data[$column["name"]] = $document->{"get".ucfirst($name)}();
         }
         foreach($metadata["properties"]["manyToOne"] as $name=>$column)
         {
-            $data[$column["name"]] = $document->__get($name) != null ? $document->__get($name)->getId() : null;
+            $data[$column["name"]] = $document->{"get".ucfirst($name)}() != null ? $document->{"get".ucfirst($name)}()->getId() : null;
         }
         $result = \r\table($metadata["table"]["name"])->insert($data)->run($conn);
         if($result["errors"] == 0 && $result["inserted"] == 1){

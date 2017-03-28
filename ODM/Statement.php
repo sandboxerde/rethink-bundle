@@ -29,12 +29,14 @@ class Statement
         foreach($this->metadata["properties"]["columns"] as $name=>$columnMetadata)
         {
             $field = ucfirst($name);
-            $document->{"set".$field}($data[$columnMetadata["name"]]);
+            $value = isset($data[$columnMetadata["name"]]) ? $data[$columnMetadata["name"]] : null;
+            $document->{"set".$field}($value);
         }
         foreach($this->metadata["properties"]["manyToOne"] as $name=>$columnMetadata)
         {
             $field = ucfirst($name);
-            $document->{"set".$field}($data[$columnMetadata["name"]]);
+            $value = isset($data[$columnMetadata["name"]]) ? $data[$columnMetadata["name"]] : null;
+            $document->{"set".$field}($value);
         }
         return $document;
     }

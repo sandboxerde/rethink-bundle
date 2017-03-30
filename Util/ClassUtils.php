@@ -32,17 +32,17 @@ class ClassUtils
         return $cacheDir.'/t_boileau_rethink_bundle/proxies/__Proxy__'.$fileName.".php";;
     }
 
-    public function getRealNamespace($class)
+    public static function getRealNamespace($class)
     {
         return substr($class,0, strrpos($class,"\\"));
     }
 
-    public function getClassName($class)
+    public static function getClassName($class)
     {
         return substr($class,strrpos($class,"\\")+1);
     }
 
-    public function getClassWithNamespace($class)
+    public static function getClassWithNamespace($class)
     {
         return "\\".$class;
     }

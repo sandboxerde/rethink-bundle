@@ -3,8 +3,10 @@ services:
         class: TBoileau\RethinkBundle\ODM\EntityManager
         arguments: ["%t_boileau_rethink.connection%","@t_boileau_rethink.util.metadata_driver"]
     t_boileau_rethink.util.metadata_driver:
+        public: true
         class: TBoileau\RethinkBundle\Util\MetadataDriver
         arguments: ["@annotation_reader","%kernel.cache_dir%","@t_boileau_rethink.util.proxy_generator"]
     t_boileau_rethink.util.proxy_generator:
+        public: true
         class: TBoileau\RethinkBundle\Util\ProxyGenerator
         arguments: ["%kernel.cache_dir%","@templating"]

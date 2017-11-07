@@ -19,7 +19,7 @@ class ClassUtils
 
     public static function proxyClass($class)
     {
-        return "\__Proxy__\\".self::getRealNamespace($class)."\\".self::getClassName($class);
+        return self::getRealNamespace($class)."\\".self::getClassName($class);
     }
 
     public static function getClassNameForProxy($class)

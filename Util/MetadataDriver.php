@@ -26,7 +26,7 @@ class MetadataDriver
                 // __DIR__.'/../../../../src/*/*/Document',
             ));
             foreach($finder as $file){
-                $class = str_replace("/","\\",str_replace(".php","",substr($file->getPathname(),strrpos($file->getPathname(),"src/")+4)));
+                $class = 'App\\'.str_replace("/","\\",str_replace(".php","",substr($file->getPathname(),strrpos($file->getPathname(),"src/")+4)));
                 $reflectionClass = new \ReflectionClass($class);
                 if($annotationClass = $this->annotationReader->getClassAnnotation($reflectionClass, 'TBoileau\\RethinkBundle\\ODM\\Metadata\\Table')){
                     $this->documents[$class] = [

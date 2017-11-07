@@ -74,7 +74,7 @@ class Statement
         $data = $this->query->toArray();
         if(count($data) == 0){
             return array();
-        }else{
+        } else {
             $array = [];
             foreach($data as $d)
             {
@@ -87,5 +87,10 @@ class Statement
     public function getScalarResults()
     {
         return $this->query->toArray();
+    }
+
+    public function hasResult()
+    {
+        return $this->query !== null;
     }
 }
